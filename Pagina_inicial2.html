@@ -54,17 +54,17 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <h2 class="text-center mb-4">Acesse sua conta</h2>
-        <form>
-          <div class="mb-3">
-            <label for="email" class="form-label">E-mail:</label>
-            <input type="email" class="form-control" id="email" placeholder="Digite seu e-mail">
-          </div>
-          <div class="mb-3">
-            <label for="senha" class="form-label">Senha:</label>
-            <input type="password" class="form-control" id="senha" placeholder="Digite sua senha">
-          </div>
-          <button type="submit" class="btn btn-custom w-100">Entrar</button>
-        </form>
+<form action="/login" method="POST">
+  <div class="mb-3">
+    <label for="email" class="form-label">E-mail:</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
+  </div>
+  <div class="mb-3">
+    <label for="senha" class="form-label">Senha:</label>
+    <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+  </div>
+  <button type="submit" class="btn btn-custom w-100">Entrar</button>
+</form>
         <div class="text-center mt-3">
           <p>Não tem uma conta? <a href="#cadastro">Cadastre-se</a></p>
         </div>
@@ -76,21 +76,22 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <h2 class="text-center mb-4">Cadastro</h2>
-        <form>
-          <div class="mb-3">
-            <label for="nome" class="form-label">Nome:</label>
-            <input type="text" class="form-control" id="nome" placeholder="Digite seu nome">
-          </div>
-          <div class="mb-3">
-            <label for="cadastroEmail" class="form-label">E-mail:</label>
-            <input type="email" class="form-control" id="cadastroEmail" placeholder="Digite seu e-mail">
-          </div>
-          <div class="mb-3">
-            <label for="cadastroSenha" class="form-label">Senha:</label>
-            <input type="password" class="form-control" id="cadastroSenha" placeholder="Crie uma senha">
-          </div>
-          <button type="submit" class="btn btn-custom w-100">Cadastrar</button>
-        </form>
+<form action="/cadastro" method="POST">
+  <div class="mb-3">
+    <label for="nome" class="form-label">Nome:</label>
+    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite seu nome" required>
+  </div>
+  <div class="mb-3">
+    <label for="cadastroEmail" class="form-label">E-mail:</label>
+    <input type="email" class="form-control" id="cadastroEmail" name="email" placeholder="Digite seu e-mail" required>
+  </div>
+  <div class="mb-3">
+    <label for="cadastroSenha" class="form-label">Senha:</label>
+    <input type="password" class="form-control" id="cadastroSenha" name="senha" placeholder="Crie uma senha" required>
+  </div>
+  <button type="submit" class="btn btn-custom w-100">Cadastrar</button>
+</form>
+
       </div>
     </div>
   </section>
