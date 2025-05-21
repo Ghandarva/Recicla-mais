@@ -49,17 +49,19 @@ cd Recicla-mais
 
 ### 💻 Executando localmente
 
-Como o projeto está baseado em HTML/CSS e JS puro:
+Como o projeto está baseado em HTML/CSS e JS puro com backend em Node.js:
 
 1. Navegue até o diretório do projeto
-2. Abra o arquivo `index.html` no navegador
-3. Ou, se preferir, use o Live Server (VS Code)
-
+2. Instale as dependências:
 ```bash
-# Se estiver usando VS Code:
-code .
-# Clique com o botão direito no index.html > Open with Live Server
+npm install
 ```
+3. Inicie o servidor:
+```bash
+npm start
+```
+4. Acesse o sistema via [http://localhost:3000](http://localhost:3000)
+
 
 ---
 
@@ -67,35 +69,14 @@ code .
 
 ### Estrutura
 
-O projeto utiliza um banco de dados relacional com MySQL. A estrutura básica inclui:
+O projeto utiliza um banco de dados relacional com SQLite. A estrutura básica inclui:
 
 - **usuarios** – Cadastro de usuários
-- **pedidos_coleta** – Solicitações de coleta agendadas
 
-Scripts disponíveis na pasta `database/`:
+Scripts disponíveis:
 
-- `schema.sql`: cria todas as tabelas principais.
-- `seed.sql`: insere dados iniciais (opcional).
-- `migrations/`: contém scripts incrementais com histórico de alterações.
-
-### 💾 Configuração do banco
-
-1. Crie um banco de dados no MySQL:
-
-```sql
-CREATE DATABASE reciclamais;
-```
-
-2. Execute o script `schema.sql`:
-
-```bash
-mysql -u seu_usuario -p reciclamais < database/schema.sql
-```
-
-3. (Opcional) Popular com dados de exemplo:
-
-```bash
-mysql -u seu_usuario -p reciclamais < database/seed.sql
-```
+- `db.js`: cria a estrutura do banco com a tabela de usuários automaticamente ao iniciar.
+- Os dados são persistidos no arquivo `database.sqlite`.
 
 ---
+
