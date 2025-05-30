@@ -104,5 +104,37 @@
   <script>
     AOS.init();
   </script>
+    <script>
+  function validarSenhaFrontend(senha) {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+    return regex.test(senha);
+  }
+
+  document.getElementById('cadastroForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const senha = form.senha.value;
+
+    if (!validarSenhaFrontend(senha)) {
+      alert('Senha fraca. A senha deve ter no mínimo 6 caracteres, com pelo menos uma letra maiúscula, uma letra minúscula e um número.');
+      return;
+    }
+
+    const data = {
+      nome: form.nome.value,
+      email: form.email.value,
+      senha: senha
+    };
+
+    const res = await fetch('/api/cadastro', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    const result = await res.text();
+    document.body.innerHTML = result;
+  });
+</script>
 </body>
 </html>
