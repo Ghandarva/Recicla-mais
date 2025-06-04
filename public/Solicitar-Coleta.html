@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitar Coleta | Recicla+</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-green-700 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-white text-2xl font-bold">Recicla+</h1>
+      <a href="dashboard.html" class="text-white hover:underline">Voltar para Dashboard</a>
+    </div>
+  </nav>
+
+  <!-- Container Principal -->
+  <div class="container mx-auto mt-10 max-w-lg bg-white rounded-lg shadow-lg p-8">
+    <h2 class="text-2xl font-bold text-center mb-6 text-green-700">Solicitar Coleta</h2>
+
+    <form id="coletaForm" class="space-y-5">
+      <!-- Tipo de Material -->
+      <div>
+        <label for="material" class="block mb-1 font-semibold text-gray-700">Tipo de Material</label>
+        <select id="material" name="material" required class="w-full border border-gray-300 rounded px-4 py-2">
+          <option value="">Selecione</option>
+          <option value="Papel">Papel</option>
+          <option value="Plástico">Plástico</option>
+          <option value="Vidro">Vidro</option>
+          <option value="Metal">Metal</option>
+          <option value="Orgânico">Orgânico</option>
+          <option value="Eletrônicos">Eletrônicos</option>
+        </select>
+      </div>
+
+      <!-- Endereço -->
+      <div>
+        <label for="endereco" class="block mb-1 font-semibold text-gray-700">Endereço para Coleta</label>
+        <input type="text" id="endereco" name="endereco" required placeholder="Rua, número, bairro, cidade"
+          class="w-full border border-gray-300 rounded px-4 py-2">
+      </div>
+
+      <!-- Data Preferencial -->
+      <div>
+        <label for="data" class="block mb-1 font-semibold text-gray-700">Data Preferencial</label>
+        <input type="date" id="data" name="data" required
+          class="w-full border border-gray-300 rounded px-4 py-2">
+      </div>
+
+      <!-- Botão -->
+      <div class="flex justify-center">
+        <button type="submit"
+          class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold">
+          Solicitar Coleta
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Script Simples de Feedback -->
+  <script>
+    document.getElementById('coletaForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Coleta solicitada com sucesso!');
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+
+</body>
+</html>
