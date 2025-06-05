@@ -31,32 +31,12 @@ Usuários podem se cadastrar, fazer login, visualizar pontos de coleta próximos
 ---
 ## 📦 Instalação e Uso
 
-### Pré-requisitos
-
-Certifique-se de ter as seguintes ferramentas instaladas:
-
-- [Node.js](https://nodejs.org/)
-- [Git](https://git-scm.com/)
-- [MySQL](https://www.mysql.com/) ou outro SGBD compatível
 
 ### 💻 Executando localmente
 
-1. Extraia o arquivo em C:/Users/(SeuUsuário)
+1. Extraia o arquivo
 
-2. Navegue até o diretório do projeto:
-```bash
-cd (NomeDoArquivo)
-```
-3. Instale as dependências:
-```bash
-npm install
-```
-5. Inicie o servidor:
-```bash
-npm start
-```
-6. Acesse o sistema via [http://localhost:3000](http://localhost:3000)
-
+2. Lançe o executavel
 
 ---
 
@@ -74,4 +54,3 @@ Scripts disponíveis:
 - Os dados são persistidos no arquivo `database.sqlite`.
 
 ---
-
