@@ -14,7 +14,7 @@ echo == Adicionando arquivos ==
 git add .
 
 echo == Commitando arquivos ==
-git commit -m "Atualizaçao"
+git commit -m "Update"
 
 echo == Enviando para o GitHub ==
 git push origin main
