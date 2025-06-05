@@ -1,6 +1,6 @@
 @echo off
 cls
-echo ========= INICIANDO PUSH PARA O GITHUB (FORÇADO) =========
+echo ========= INICIANDO PUSH PARA O GITHUB  =========
 
 cd /d %~dp0
 
