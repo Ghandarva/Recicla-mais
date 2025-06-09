@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resgatar Pontos - Recicla+</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <header class="bg-green-700 text-white p-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Recicla+</h1>
+    <a href="sistema-de-pontos.html" class="text-sm hover:underline">Voltar aos Pontos</a>
+  </header>
+
+  <main class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold text-green-700 mb-4">Resgatar Benefícios</h2>
+    <div id="beneficios" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+  </main>
+
+  <script>
+    const beneficios = [
+      { id: 1, nome: "Desconto em loja parceira", custo: 30 },
+      { id: 2, nome: "Ecobag sustentável", custo: 50 },
+      { id: 3, nome: "Squeeze ecológica", custo: 60 },
+      { id: 4, nome: "Camisa Recicla+", custo: 100 }
+    ];
+
+    async function carregarBeneficios() {
+      const res = await fetch("/api/pontos");
+      const data = await res.json();
+      const total = data.total || 0;
+      const container = document.getElementById("beneficios");
+
+      beneficios.forEach(b => {
+        const div = document.createElement("div");
+        div.className = "bg-green-50 p-4 rounded shadow";
+        div.innerHTML = `
+          <h3 class="text-lg font-bold text-green-700 mb-2">${b.nome}</h3>
+          <p><strong>Custo:</strong> ${b.custo} pontos</p>
+          <button class="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            onclick="resgatar(${b.id}, '${b.nome}', ${b.custo}, ${total})">
+            Resgatar
+          </button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function resgatar(id, nome, custo, total) {
+      if (total < custo) {
+        alert("❌ Pontuação insuficiente.");
+        return;
+      }
+
+      fetch("/api/resgatar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, nome, custo })
+      }).then(r => {
+        if (r.ok) {
+          alert("🎉 Recompensa resgatada com sucesso!");
+          window.location.reload();
+        } else {
+          alert("❌ Erro ao resgatar.");
+        }
+      });
+    }
+
+    carregarBeneficios();
+  </script>
+</body>
+</html>
+

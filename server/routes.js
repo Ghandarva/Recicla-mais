@@ -62,5 +62,53 @@ router.post('/login', (req, res) => {
     }
   });
 });
+router.post('/solicitar-coleta', (req, res) => {
+  const { material, endereco, data } = req.body;
+
+  const query = `INSERT INTO coletas (material, endereco, data) VALUES (?, ?, ?)`;
+
+  db.run(query, [material, endereco, data], function (err) {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ sucesso: false, mensagem: 'Erro ao salvar no banco de dados.' });
+    }
+
+    res.status(200).json({ sucesso: true, mensagem: 'Solicitação registrada com sucesso!' });
+  });
+});
+router.get('/coletas', (req, res) => {
+  db.all('SELECT * FROM coletas ORDER BY data DESC', (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json([]);
+    }
+    res.json(rows);
+  });
+});
+router.get('/pontos', (req, res) => {
+  const query = 'SELECT COUNT(*) AS total FROM coletas';
+  db.get(query, [], (err, row) => {
+    if (err) {
+      console.error(err.message);
+      return res.json({ total: 0 });
+    }
+    // Exemplo: cada coleta = 10 pontos
+    const pontos = (row.total || 0) * 10;
+    res.json({ total: pontos });
+  });
+});
+router.post('/resgatar', (req, res) => {
+  const { id, nome, custo } = req.body;
+
+  const query = `INSERT INTO resgates (beneficio, pontos) VALUES (?, ?)`;
+  db.run(query, [nome, custo], (err) => {
+    if (err) {
+      console.error("Erro ao registrar resgate:", err.message);
+      return res.status(500).json({ erro: 'Erro ao salvar resgate no banco de dados.' });
+    }
+
+    res.status(200).json({ mensagem: 'Resgate registrado com sucesso.' });
+  });
+});
 
 module.exports = router;

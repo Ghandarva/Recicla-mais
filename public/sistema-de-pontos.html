@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sistema de Pontos - Recicla+</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Cabeçalho -->
+  <header class="bg-green-700 text-white p-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Recicla+</h1>
+    <a href="dashboard.html" class="text-sm hover:underline">Voltar à Dashboard</a>
+  </header>
+
+  <!-- Conteúdo -->
+  <main class="max-w-3xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold mb-4 text-green-700">Sistema de Pontos</h2>
+
+    <p class="mb-4">
+      O sistema de pontos do Recicla+ recompensa você por contribuir com o meio ambiente!
+      A cada solicitação de coleta registrada, você acumula pontos que podem ser trocados por benefícios.
+    </p>
+
+    <div class="bg-green-50 p-4 rounded shadow text-center mb-6">
+      <h3 class="text-lg font-bold text-green-700">Seus pontos acumulados:</h3>
+      <p class="text-4xl text-green-800 mt-2" id="pontos">Carregando...</p>
+    </div>
+
+    <div class="bg-white p-4 rounded shadow-md">
+      <h4 class="text-md font-semibold mb-2">Como os pontos são acumulados:</h4>
+      <ul class="list-disc list-inside text-gray-700">
+        <li>+10 pontos por cada solicitação de coleta registrada</li>
+        <li>+5 pontos por responder pesquisas ambientais</li>
+        <li>+15 pontos por participar de campanhas de reciclagem</li>
+      </ul>
+    </div>
+
+<div class="mt-6 text-center">
+  <a href="resgatar-pontos.html" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 inline-block">
+    Trocar Pontos por Benefícios
+  </a>
+</div>
+
+  </main>
+
+  <script>
+    async function carregarPontos() {
+      const res = await fetch('/api/pontos');
+      const data = await res.json();
+      const total = data.total || 0;
+      document.getElementById('pontos').textContent = total + " pts";
+    }
+
+    function resgatarPontos() {
+      alert("🎁 Em breve você poderá trocar seus pontos por descontos e brindes!");
+    }
+
+    carregarPontos();
+  </script>
+
+  <!-- Rodapé -->
+  <footer class="text-center text-sm text-gray-500 mt-10 mb-6">
+    © 2025 Recicla+. Recompensando ações sustentáveis.
+  </footer>
+
+</body>
+</html>

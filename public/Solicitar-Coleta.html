@@ -60,13 +60,33 @@
   </div>
 
   <!-- Script Simples de Feedback -->
-  <script>
-    document.getElementById('coletaForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      alert('Coleta solicitada com sucesso!');
-      window.location.href = 'dashboard.html';
+<script>
+  document.getElementById('coletaForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const dados = {
+      material: form.material.value,
+      endereco: form.endereco.value,
+      data: form.data.value
+    };
+
+    const resposta = await fetch('/api/solicitar-coleta', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
     });
-  </script>
+
+    if (resposta.ok) {
+      alert('✅ Solicitação registrada com sucesso!');
+      window.location.href = 'dashboard.html';
+    } else {
+      alert('❌ Erro ao registrar solicitação. Tente novamente.');
+    }
+  });
+</script>
+
+
 
 </body>
 </html>
