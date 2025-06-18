@@ -1,0 +1,23 @@
+:focus-visible {
+  outline: 3px solid #2ecc71;
+  outline-offset: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button, a, input, textarea {
+  transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  h1, h2, h3 {
+    font-size: 1.25rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+}
