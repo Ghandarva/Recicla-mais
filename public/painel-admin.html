@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel Administrativo - Recicla+</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <header class="bg-green-700 text-white p-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Recicla+</h1>
+    <a href="index.html" class="text-sm hover:underline">Voltar à Página Inicial</a>
+  </header>
+
+  <main class="max-w-3xl mx-auto mt-10 bg-white p-6 rounded shadow-md">
+    <h2 class="text-xl font-semibold text-green-700 mb-4">Cadastrar Cooperativa / Ecoponto</h2>
+
+    <form id="formCooperativa" class="space-y-4">
+      <input name="nome" placeholder="Nome" required class="w-full border p-2 rounded" />
+      <input name="endereco" placeholder="Endereço" required class="w-full border p-2 rounded" />
+      <input name="bairro" placeholder="Bairro" required class="w-full border p-2 rounded" />
+      <input name="contato" placeholder="Telefone ou e-mail" required class="w-full border p-2 rounded" />
+      <button class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Salvar</button>
+    </form>
+
+    <div id="mensagem" class="mt-4 text-center font-semibold"></div>
+  </main>
+
+  <script>
+    document.getElementById("formCooperativa").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        nome: form.nome.value,
+        endereco: form.endereco.value,
+        bairro: form.bairro.value,
+        contato: form.contato.value
+      };
+
+      const res = await fetch("/api/cooperativas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const msg = document.getElementById("mensagem");
+if (res.ok) {
+  msg.innerText = "✅ Cooperativa cadastrada com sucesso! Redirecionando...";
+  msg.className = "text-green-600";
+  setTimeout(() => {
+    window.location.href = "painel-notificacoes.html";
+  }, 2000); // espera 2 segundos antes de redirecionar
+} else {
+  msg.innerText = "❌ Erro ao cadastrar cooperativa.";
+  msg.className = "text-red-600";
+}
+
+    });
+  </script>
+</body>
+</html>
+

@@ -26,6 +26,42 @@ db.serialize(() => {
     data TEXT DEFAULT CURRENT_TIMESTAMP
   )
 `);
+db.run(`
+  CREATE TABLE IF NOT EXISTS denuncias (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    descricao TEXT,
+    imagem TEXT,
+    latitude REAL,
+    longitude REAL,
+    data TEXT DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+db.run(`
+  CREATE TABLE IF NOT EXISTS cooperativas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT,
+    endereco TEXT,
+    bairro TEXT,
+    contato TEXT
+  )
+`);
+db.run(`
+  CREATE TABLE IF NOT EXISTS notificacoes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo TEXT,
+    mensagem TEXT,
+    bairro TEXT,
+    data TEXT DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+db.run(`
+  CREATE TABLE IF NOT EXISTS resgates (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT,
+    recompensa TEXT,
+    data TEXT DEFAULT CURRENT_TIMESTAMP
+  )
+`);
 
 });
 

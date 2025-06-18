@@ -110,5 +110,97 @@ router.post('/resgatar', (req, res) => {
     res.status(200).json({ mensagem: 'Resgate registrado com sucesso.' });
   });
 });
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' }); // pasta onde imagens serão salvas
+
+router.post('/denuncia', upload.single('imagem'), (req, res) => {
+  const { descricao, latitude, longitude } = req.body;
+  const imagem = req.file ? req.file.filename : null;
+
+  const query = `
+    INSERT INTO denuncias (descricao, imagem, latitude, longitude)
+    VALUES (?, ?, ?, ?)
+  `;
+
+  db.run(query, [descricao, imagem, latitude, longitude], (err) => {
+    if (err) {
+      console.error("Erro ao salvar denúncia:", err.message);
+      return res.status(500).send("Erro ao salvar denúncia.");
+    }
+    res.status(200).send("Denúncia registrada com sucesso.");
+  });
+});
+router.get('/ranking', (req, res) => {
+  const query = `
+    SELECT u.nome, COUNT(c.id) * 10 AS pontos
+    FROM usuarios u
+    LEFT JOIN coletas c ON u.email = c.email
+    GROUP BY u.nome
+    ORDER BY pontos DESC
+  `;
+
+  db.all(query, [], (err, rows) => {
+    if (err) {
+      console.error("Erro no ranking:", err.message);
+      return res.status(500).json([]);
+    }
+    res.json(rows);
+  });
+});
+router.post('/cooperativas', (req, res) => {
+  const { nome, endereco, bairro, contato } = req.body;
+  const query = `INSERT INTO cooperativas (nome, endereco, bairro, contato) VALUES (?, ?, ?, ?)`;
+  db.run(query, [nome, endereco, bairro, contato], (err) => {
+    if (err) {
+      console.error("Erro ao inserir cooperativa:", err.message);
+      return res.status(500).send("Erro ao salvar cooperativa.");
+    }
+    res.status(200).send("Cooperativa salva.");
+  });
+});
+router.post('/notificacoes', (req, res) => {
+  const { titulo, mensagem, bairro } = req.body;
+  const query = `INSERT INTO notificacoes (titulo, mensagem, bairro) VALUES (?, ?, ?)`;
+
+  db.run(query, [titulo, mensagem, bairro], (err) => {
+    if (err) {
+      console.error("Erro ao salvar notificação:", err.message);
+      return res.status(500).send("Erro ao salvar notificação.");
+    }
+    res.status(200).send("Notificação enviada.");
+  });
+});
+router.get('/notificacoes/:bairro', (req, res) => {
+  const bairro = req.params.bairro;
+  const query = `SELECT * FROM notificacoes WHERE bairro = ? OR bairro = 'Todos' ORDER BY data DESC`;
+
+  db.all(query, [bairro], (err, rows) => {
+    if (err) {
+      console.error("Erro ao buscar notificações:", err.message);
+      return res.status(500).json([]);
+    }
+    res.json(rows);
+  });
+});
+// Histórico de resgates por e-mail
+router.get('/resgates/:email', (req, res) => {
+  const email = req.params.email;
+
+  const query = `
+    SELECT recompensa, data
+    FROM resgates
+    WHERE email = ?
+    ORDER BY data DESC
+  `;
+
+  db.all(query, [email], (err, rows) => {
+    if (err) {
+      console.error("Erro ao buscar histórico de resgates:", err.message);
+      return res.status(500).json({ erro: "Erro no servidor" });
+    }
+
+    res.json(rows);
+  });
+});
 
 module.exports = router;

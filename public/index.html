@@ -54,7 +54,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <h2 class="text-center mb-4">Acesse sua conta</h2>
-<form action="/api/login" method="POST">
+<form id="loginForm">
   <div class="mb-3">
     <label for="email" class="form-label">E-mail:</label>
     <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required>
@@ -89,6 +89,13 @@
     <label for="cadastroSenha" class="form-label">Senha:</label>
     <input type="password" class="form-control" id="cadastroSenha" name="senha" placeholder="Crie uma senha" required>
   </div>
+  <div class="mb-3 form-check">
+  <input type="checkbox" class="form-check-input" id="aceite" required>
+  <label class="form-check-label" for="aceite">
+    Eu li e aceito os <a href="termos.html" target="_blank">Termos de Uso</a> e a <a href="privacidade.html" target="_blank">Política de Privacidade</a>.
+  </label>
+</div>
+
   <button type="submit" class="btn btn-custom w-100">Cadastrar</button>
 </form>
 
@@ -98,6 +105,7 @@
 
   <footer class="bg-light text-center py-3">
     <p class="mb-0">&copy; 2025 Recicla+. Todos os direitos reservados.</p>
+    <a href="painel-admin.html" class="text-sm text-success hover:underline">Acesso Administrativo</a>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
@@ -134,7 +142,35 @@
 
     const result = await res.text();
     document.body.innerHTML = result;
+    if (!form.aceite.checked) {
+  alert("Você deve aceitar os Termos de Uso e a Política de Privacidade para continuar.");
+  return;
+}
+
   });
 </script>
+<script>
+  document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const senha = e.target.senha.value;
+
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, senha })
+    });
+
+    const resposta = await res.text();
+
+    if (res.ok) {
+      localStorage.setItem("usuarioEmail", email);
+      window.location.href = "dashboard.html";
+    } else {
+      document.body.innerHTML = resposta;
+    }
+  });
+</script>
+
 </body>
 </html>
