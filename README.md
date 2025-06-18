@@ -66,9 +66,8 @@ Recicla-mais/
 ### 💻 Executando localmente
 
 1. Extraia o arquivo
-2. Rode `npm install` (se for usar em ambiente Node.js)
-3. Execute com `npm start` ou use `Recicla-mais-win.exe`
-4. Acesse `http://localhost:3000` no navegador
+2. Clique no executavel
+3. Acesse `http://localhost:3000` no navegador
 
 ---
 
@@ -136,6 +135,3 @@ Scripts disponíveis:
 
 ---
 
-## 💬 Contato
-
-Projeto acadêmico | Desenvolvido por [Seu Nome]
